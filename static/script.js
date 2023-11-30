@@ -34,19 +34,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 var productName = document.createElement('h3');
                 productName.textContent = results[i].name;
 
+                var productCategory = document.createElement('p');
+                productCategory.textContent = 'Category: ' + results[i].category;
+
+                var productBrand = document.createElement('p');
+                productBrand.textContent = 'Brand: ' + results[i].brand;
+
                 var productPrice = document.createElement('p');
-                productPrice.textContent = 'Price: $' + results[i].price;
+                productPrice.textContent = 'Price: ' + results[i].price + ' /-';
 
                 // Add more product details to display
 
                 productDiv.appendChild(productName);
+                productDiv.appendChild(productCategory);
+                productDiv.appendChild(productBrand);
                 productDiv.appendChild(productPrice);
 
                 resultsContainer.appendChild(productDiv);
             }
+            // Show the results container after displaying results
+            resultsContainer.style.display = 'block';
         } else {
             // Display a message when no products are found
             resultsContainer.innerHTML = '<p>No products found.</p>';
+            // Hide the results container when no results are found
+            resultsContainer.style.display = 'none';
         }
     }
 });
