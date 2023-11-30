@@ -1,0 +1,59 @@
+/* Global styles */
+body {
+    font-family: sans-serif;
+}
+
+header {
+    background-color: #2196F3;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.search-box {
+    display: flex;
+    margin: 20px auto;
+    width: 50%;
+}
+
+.search-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    flex-grow: 1;
+}
+
+.search-box button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #2196F3;
+    color: white;
+    cursor: pointer;
+}
+
+/* Styles for displaying search results */
+.results-container {
+    margin: 20px;
+}
+
+.product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Additional styles for search result page */
+.results-container h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.results-container .product h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.results-container .product p {
+    font-size: 16px;
+    color: #555;
+}
+/* Add more styles as needed */
