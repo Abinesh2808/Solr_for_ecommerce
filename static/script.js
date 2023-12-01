@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Display a message when no products are found
             resultsContainer.innerHTML = '<p>No products found.</p>';
             // Hide the results container when no results are found
-            resultsContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
         }
     }
 });
