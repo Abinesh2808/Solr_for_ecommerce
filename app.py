@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import json
+import requests
 
 app = Flask(__name__)
-
+solr_core_url = "http://localhost:8983/solr/solr_sample_core"
+# solr_core_url = "http://localhost:8983/solr/testing"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -14,34 +16,25 @@ def index():
 @app.route('/search', methods=['POST'])
 def search():
     search_term = request.json['searchInput']  # Make sure to retrieve the search input correctly
-    search_result = search_products(search_term)
+    search_result = search_products_solr(search_term)
     return jsonify(search_result)  # Return search results as JSON
 
 
-def load_products_from_json():
-    with open('data/products.json', 'r') as json_file:
-        products = json.load(json_file)
-    return products
-
-
-def search_products(search_term):
-    products = load_products_from_json()
-
-    if products is None:
+# Function to perform a Solr search
+def search_products_solr(search_term):
+    solr_url = f"{solr_core_url}/select"  # Modify this URL to match your Solr setup
+    params = {
+        'q': f'name:{search_term}',  # Define your query parameters as needed
+        'rows': 10  # Number of rows/results to fetch
+    }
+    
+    response = requests.get(solr_url, params=params)
+    if response.status_code == 200:
+        solr_data = response.json()
+        return solr_data.get('response', {}).get('docs', [])
+    else:
+        print(f"Error: {response.status_code} - {response.text}")
         return []
-
-    matching_products = [
-        product for product in products
-        if (
-                isinstance(product.get('name'), str)
-                and product.get('name') is not None  # Ensure 'name' attribute is not None
-                and search_term
-                and isinstance(search_term, str)
-                and search_term.lower() in product['name'].lower()
-        )
-    ]
-
-    return matching_products
 
 
 if __name__ == '__main__':
