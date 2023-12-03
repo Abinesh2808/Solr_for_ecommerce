@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-import json
 import requests
 
 app = Flask(__name__)
@@ -24,8 +23,10 @@ def search():
 def search_products_solr(search_term):
     solr_url = f"{solr_core_url}/select"  # Modify this URL to match your Solr setup
     params = {
-        'q': f'name:{search_term}',  # Define your query parameters as needed
-        'rows': 10  # Number of rows/results to fetch
+        # Define your query parameters as needed
+        'q': f'name:{search_term} OR brand:{search_term} OR model:{search_term} OR category:{search_term} OR sub_category:{search_term}',
+        'start': 0,
+        'rows': 1000  # Number of rows/results to fetch
     }
     
     response = requests.get(solr_url, params=params)
